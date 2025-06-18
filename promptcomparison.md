@@ -42,27 +42,45 @@ Om möjligt, identifiera och kommentera ovanliga headers, saknade säkerhetsinst
 Ge gärna exempel på varför dessa fynd kan vara en säkerhetsrisk och koppla gärna till attacker, vanliga misstag eller OWASP-toppar.
 
 **AI-svar:**
-> ### 1. Identifierade sårbarheter
-> * Nikto: Backup-filer, X-Recruiting-header, saknade säkerhetsheaders
-> * WhatWeb: HTML5, jQuery 2.2.4
-> * Gobuster: `/ftp`, `/public`, plugins
 
-> ### 2. Vidare tester
-> * Djupare analys av backup-filer och headers
-> * Kontrollera `robots.txt` och `favicon_js.ico`
-> * Använd Nikto med `-C all`
+**1. Identifierade sårbarheter (per verktyg)**
 
-> ### 3. Rekommenderade åtgärder
-> * Säkra konfigurationer, uppdatera `robots.txt`, sätt `X-Content-Type-Options`
+* Nikto:
+	+ Potentially interesting backup/cert files found (multiple)
+	+ Uncommon header 'x-recruiting' found
+	+ No CGI Directories found
+	+ /robots.txt contains entries which should be manually viewed
+	+ X-Content-Type-Options header is not set for assets/public/favicon_js.ico
+* WhatWeb:
+	+ Detected a web application at <http://localhost:3000> with features such as HTML5, jQuery 2.2.4, and others
+* Gobuster:
+	+ Identified several directories and files on the target server
 
-> ### 4. Allvarlighetsgrad
-> * Fynden kan utgöra säkerhetsrisker om de inte hanteras korrekt, t.ex. cert-filer och ovanliga headers.
+**2. Förslag på vidare tester**
 
-> ### 5. Sammanfattning
-> * Nikto identifierade flera potentiella problem
-> * WhatWeb visar teknikstack
-> * Gobuster visar känsliga kataloger
-> * Mer analys krävs
+* Further investigate the potentially interesting backup/cert files found by Nikto to determine their contents and potential impact.
+* Analyze the uncommon header 'x-recruiting' further to understand its purpose and potential vulnerabilities.
+* Perform a more thorough scan of the CGI Directories using Nikto's -C all option.
+* Review the entries in /robots.txt to determine if they pose any security risks.
+* Investigate the assets/public/favicon_js.ico file to determine if the missing X-Content-Type-Options header poses any risks.
+
+**3. Rekommenderade åtgärder**
+
+* Implement proper configuration for CGI Directories and ensure that all possible directories are checked.
+* Review and update the /robots.txt file to ensure it does not pose any security risks.
+* Set the X-Content-Type-Options header correctly for assets/public/favicon_js.ico.
+* Further investigate the potentially interesting backup/cert files found by Nikto to determine their contents and potential impact.
+
+**4. Allvarlighetsgrad**
+
+The severity of these findings is dependent on the specific details and context of each finding. However, in general, the presence of potentially interesting backup/cert files, uncommon headers, and missing configuration options can pose security risks if not properly addressed.
+
+**5. Sammanfattning (punktlista)**
+
+* Nikto identified several potential issues with backup/cert files and configuration.
+* WhatWeb detected a web application at <http://localhost:3000> with features such as HTML5 and jQuery 2.2.4.
+* Gobuster identified several directories and files on the target server.
+* Further investigation is recommended to determine the impact of these findings.
 
 ✅ *Kommentar:* Den längre prompten genererar ett djupare, strukturerat och mer användbart svar – med koppling till OWASP och konkreta rekommendationer.
 
